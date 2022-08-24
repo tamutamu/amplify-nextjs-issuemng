@@ -1,6 +1,6 @@
 {
   "auth": {
-    "amplifynextjsissuemn6bc2ae64": {
+    "amplifynextjsissuemnf60ebbd6f60ebbd6": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -15,9 +15,10 @@
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "ON",
         "mfaTypes": [
-          "SMS"
+          "SMS",
+          "TOTP"
         ],
         "verificationMechanisms": [
           "EMAIL"
@@ -32,7 +33,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "amplifynextjsissuemn6bc2ae64",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
           "attributes": [
             "UserPoolId"
           ]
@@ -41,26 +42,50 @@
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2023-08-12T06:42:22.420Z",
-              "description": ""
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authamplifynextjsissuemnf60ebbd6f60ebbd6"
             }
           },
           "additionalAuthenticationProviders": [
             {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authamplifynextjsissuemn6bc2ae64"
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2022-08-31T10:47:31.013Z",
+                "description": ""
               }
-            },
-            {
-              "authenticationType": "AWS_IAM"
             }
           ]
         }
       }
+    }
+  },
+  "custom": {
+    "cdkcfedge": {
+      "service": "customCDK",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {
+    "testedge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "admincreateuser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
     }
   }
 }

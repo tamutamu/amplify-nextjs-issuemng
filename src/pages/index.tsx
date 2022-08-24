@@ -1,5 +1,12 @@
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
-import { Amplify, API, Auth, withSSRContext } from "aws-amplify";
+import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react";
+import {
+  AuthState,
+  UI_AUTH_CHANNEL,
+  AUTH_STATE_CHANGE_EVENT,
+  AuthStateHandler,
+} from "@aws-amplify/ui-components";
+import "@aws-amplify/ui-react/styles.css";
+import { Amplify, API, Auth, Hub, withSSRContext } from "aws-amplify";
 import Head from "next/head";
 import awsExports from "../aws-exports";
 import { createTodo } from "../graphql/mutations";
@@ -29,6 +36,118 @@ Amplify.configure({ ...awsExports, ssr: true });
 		　　});
 		}
 	 **/
+
+const MyLoginPage = () => {
+  const LoginPage = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [user, setUser] = useState({});
+    const [mfa, setMfa] = useState("");
+    Hub.listen(UI_AUTH_CHANNEL, ({ payload: { event, data, message } }) => {
+      console.log(event);
+      console.log(data);
+      switch (event) {
+        case "signIn":
+        case "cognitoHostedUI":
+          break;
+        case "signOut":
+          break;
+        case "signIn_failure":
+        case "cognitoHostedUI_failure":
+          console.log("Sign in failure", data);
+          break;
+      }
+    });
+
+    const dispatchAuthStateChangeEvent: AuthStateHandler = (
+      nextAuthState: AuthState,
+      data?: object
+    ) => {
+      Hub.dispatch(UI_AUTH_CHANNEL, {
+        event: AUTH_STATE_CHANGE_EVENT,
+        message: nextAuthState,
+        data,
+      });
+    };
+
+    // const { route, toSignIn } = useAuthenticator((context) => [context.route]);
+    const handleChange = (e) => {
+      if (e.currentTarget.name == "username") {
+        setUsername(e.currentTarget.value);
+      } else if (e.currentTarget.name == "password") {
+        setPassword(e.currentTarget.value);
+      } else {
+        setMfa(e.currentTarget.value);
+      }
+    };
+    const handleLogin = async (e: React.MouseEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      Auth.signIn(username, password).then((result) => {
+        console.log(result);
+        setUser(result);
+        // dispatchAuthStateChangeEvent(AuthState.ConfirmSignIn);
+      });
+    };
+
+    const handleMfa = async (e: React.MouseEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      Auth.confirmSignIn(user, mfa, "SOFTWARE_TOKEN_MFA").then((result) => {
+        console.log(result);
+        // dispatchAuthStateChangeEvent(AuthState.ConfirmSignIn);
+      });
+    };
+
+    return (
+      <form>
+        <div>
+          <input
+            type="text"
+            name="username"
+            onChange={handleChange}
+            value={username}
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            onChange={handleChange}
+            value={password}
+          />
+        </div>
+        <div>
+          <input type="text" name="mfa" onChange={handleChange} value={mfa} />
+        </div>
+        <button onClick={handleLogin}>ログイン</button>
+        <button onClick={handleMfa}>MFA</button>
+      </form>
+    );
+  };
+
+  return <LoginPage />;
+};
+
+const AuthComponent = ({ children }: { children: React.ReactNode }) => {
+  //   const formFields = {
+  //     signUp: {
+  //       username: {
+  //         order: 1,
+  //       },
+  //       email: {
+  //         order: 2,
+  //       },
+  //       password: {
+  //         order: 3,
+  //       },
+  //       confirm_password: {
+  //         order: 4,
+  //       },
+  //     },
+  //   };
+  const { route, toSignIn } = useAuthenticator((context) => [context.route]);
+
+  return <>{route !== "authenticated" ? <MyLoginPage /> : children}</>;
+};
 
 export default function Home({ todos = [] }: { todos: Todo[] }) {
   const router = useRouter();
@@ -160,81 +279,85 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
   }
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Amplify + Next.js</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Authenticator.Provider>
+      <AuthComponent>
+        <div className={styles.container}>
+          <Head>
+            <title>Amplify + Next.js</title>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Amplify + Next.js</h1>
+          <main className={styles.main}>
+            <h1 className={styles.title}>Amplify + Next.js</h1>
 
-        <p className={styles.description}>
-          <code className={styles.code}>{todos.length}</code>
-          Todos
-        </p>
+            <p className={styles.description}>
+              <code className={styles.code}>{todos.length}</code>
+              Todos
+            </p>
 
-        <div className={styles.grid}>
-          {todos.map((todo) => (
-            <a href={`/todo/${todo.id}`} key={todo.id}>
-              <h3>{todo.name}</h3>
-              <p>{todo.description}</p>
-            </a>
-          ))}
+            <div className={styles.grid}>
+              {todos.map((todo) => (
+                <a href={`/todo/${todo.id}`} key={todo.id}>
+                  <h3>{todo.name}</h3>
+                </a>
+              ))}
 
-          <div className={styles.card}>
-            <h3 className={styles.title}>New Todo</h3>
+              <div className={styles.card}>
+                <h3 className={styles.title}>New Todo</h3>
 
-            <AmplifyAuthenticator>
-              <form onSubmit={handleCreateTodo}>
-                <fieldset>
-                  <legend>Title</legend>
-                  <input
-                    defaultValue={`Today, ${new Date().toLocaleTimeString()}`}
-                    name="title"
-                  />
-                </fieldset>
+                <form onSubmit={handleCreateTodo}>
+                  <fieldset>
+                    <legend>Title</legend>
+                    <input
+                      defaultValue={`Today, ${new Date().toLocaleTimeString()}`}
+                      name="title"
+                    />
+                  </fieldset>
 
-                <fieldset>
-                  <legend>Content</legend>
-                  <textarea
-                    defaultValue="I built an Amplify app with Next.js!"
-                    name="content"
-                  />
-                </fieldset>
+                  <fieldset>
+                    <legend>Content</legend>
+                    <textarea
+                      defaultValue="I built an Amplify app with Next.js!"
+                      name="content"
+                    />
+                  </fieldset>
 
-                <button>Create Todo</button>
-                <button type="button" onClick={() => Auth.signOut()}>
-                  Sign out
+                  <button>Create Todo</button>
+                  <button type="button" onClick={() => Auth.signOut()}>
+                    Sign out
+                  </button>
+                </form>
+                <button type="button" onClick={handleDownloadFile}>
+                  Download File
                 </button>
-              </form>
-              <button type="button" onClick={handleDownloadFile}>
-                Download File
-              </button>
-              <div>
-                <input type="file" id="image_file_path_update_id"></input>
+                <div>
+                  <input type="file" id="image_file_path_update_id"></input>
+                </div>
+                <button type="button" onClick={handleUploadFile}>
+                  Uploard File
+                </button>
               </div>
-              <button type="button" onClick={handleUploadFile}>
-                Uploard File
-              </button>
-            </AmplifyAuthenticator>
-          </div>
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
+      </AuthComponent>
+    </Authenticator.Provider>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const SSR = withSSRContext({ req });
+  //   const SSR = withSSRContext({ req });
 
-  const response = (await SSR.API.graphql({ query: listTodos })) as {
-    data: ListTodosQuery;
-  };
+  // 	const variables = {variables: {filter: {or: [{ name: { beginsWith: "Today"}}], name: {contains: "5"}}}}
+
+  // 	const response = (await SSR.API.graphql({ query: listTodos, ...variables })) as {
+  //     data: ListTodosQuery;
+  //   };
 
   return {
     props: {
-      todos: response.data.listTodos.items,
+      //   todos: response.data.listTodos.items,
+      todos: [],
     },
   };
 };

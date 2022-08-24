@@ -1,13 +1,12 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "amplifynextjsissuemn6bc2ae64": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
+        "amplifynextjsissuemnf60ebbd6f60ebbd6": {
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string"
+            "AppClientID": "string",
+            "CreatedSNSRole": "string"
         }
     },
     "api": {
@@ -15,6 +14,20 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
+        }
+    },
+    "function": {
+        "testedge": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "admincreateuser": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     }
 }

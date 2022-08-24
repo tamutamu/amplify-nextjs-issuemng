@@ -12,8 +12,18 @@
       "AmplifyAppId": "dhxg5py9sqd6g"
     },
     "categories": {
+      "function": {
+        "testedge": {
+          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
+          "s3Key": "amplify-builds/testedge-706932642b70546f5975-build.zip"
+        },
+        "admincreateuser": {
+          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
+          "s3Key": "amplify-builds/admincreateuser-745a786457756832646e-build.zip"
+        }
+      },
       "auth": {
-        "amplifynextjsissuemn6bc2ae64": {}
+        "amplifynextjsissuemnf60ebbd6f60ebbd6": {}
       }
     }
   }
