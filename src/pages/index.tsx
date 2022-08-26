@@ -1,4 +1,10 @@
-import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react";
+import {
+  Authenticator,
+  Button,
+  Link,
+  useAuthenticator,
+  View,
+} from "@aws-amplify/ui-react";
 import {
   AuthState,
   UI_AUTH_CHANNEL,
@@ -6,13 +12,19 @@ import {
   AuthStateHandler,
 } from "@aws-amplify/ui-components";
 import "@aws-amplify/ui-react/styles.css";
-import { Amplify, API, Auth, Hub, withSSRContext } from "aws-amplify";
+import { Amplify, API, Auth, Hub, I18n, withSSRContext } from "aws-amplify";
 import Head from "next/head";
 import awsExports from "../aws-exports";
-import { createTodo } from "../graphql/mutations";
+import {
+  adminCreateUser,
+  adminDeleteUser,
+  createTodo,
+} from "../graphql/mutations";
 import { listTodos } from "../graphql/queries";
 import React, { useEffect, useState } from "react";
 import {
+  AdminCreateUserMutation,
+  AdminDeleteUserMutation,
   CreateTodoInput,
   CreateTodoMutation,
   ListTodosQuery,
@@ -24,8 +36,19 @@ import { GetServerSideProps } from "next";
 import styles from "../styles/Home.module.css";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import { translations } from "@aws-amplify/ui-react";
+// I18n.putVocabularies(translations);
 
 Amplify.configure({ ...awsExports, ssr: true });
+I18n.putVocabularies({
+  ja: {
+    "Sign in": "ログイン",
+    "Username cannot be empty": "ユーザ名を入力してください",
+    "User does not exist.": "ユーザがいないかパスワードが違います",
+  },
+});
+I18n.setLanguage("ja");
+
 //Amplify.configure({
 //aws_appsync_authenticationType: "AWS_IAM",
 //});
@@ -127,7 +150,7 @@ const MyLoginPage = () => {
   return <LoginPage />;
 };
 
-const AuthComponent = ({ children }: { children: React.ReactNode }) => {
+const MyAuthenticator = () => {
   //   const formFields = {
   //     signUp: {
   //       username: {
@@ -144,9 +167,48 @@ const AuthComponent = ({ children }: { children: React.ReactNode }) => {
   //       },
   //     },
   //   };
+
+  const formFields = {
+    signIn: {
+      username: {
+        placeholder: "ユーザIDを入力してください",
+      },
+      password: {
+        placeholder: "パスワードを入力してください",
+      },
+    },
+  };
+
+  const components = {
+    SignIn: {
+      Footer() {
+        const { toResetPassword, toSignIn } = useAuthenticator();
+        return (
+          <>
+            <View textAlign="center">
+              <Link fontWeight="normal" onClick={toResetPassword}>
+                パスワードを忘れた方はこちら
+              </Link>
+            </View>
+          </>
+        );
+      },
+    },
+  };
+
+  return (
+    <Authenticator
+      formFields={formFields}
+      components={components}
+      hideSignUp={true}
+    ></Authenticator>
+  );
+};
+
+const AuthComponent = ({ children }: { children: React.ReactNode }) => {
   const { route, toSignIn } = useAuthenticator((context) => [context.route]);
 
-  return <>{route !== "authenticated" ? <MyLoginPage /> : children}</>;
+  return <>{route !== "authenticated" ? <MyAuthenticator /> : children}</>;
 };
 
 export default function Home({ todos = [] }: { todos: Todo[] }) {
@@ -252,6 +314,34 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
     }
   }
 
+  async function handleDeleteUser(event) {
+    event.preventDefault();
+
+    const request = (await API.graphql({
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      query: adminDeleteUser,
+      variables: {
+        username: "AAAAAA",
+      },
+    })) as { data: AdminDeleteUserMutation; errors: any[] };
+
+    console.log(request);
+  }
+
+  async function handleCreateUser(event) {
+    event.preventDefault();
+
+    const request = (await API.graphql({
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      query: adminCreateUser,
+      variables: {
+        username: "AAAAAA",
+      },
+    })) as { data: AdminCreateUserMutation; errors: any[] };
+
+    console.log(request);
+  }
+
   async function handleCreateTodo(event) {
     event.preventDefault();
 
@@ -329,6 +419,12 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
                 </form>
                 <button type="button" onClick={handleDownloadFile}>
                   Download File
+                </button>
+                <button type="button" onClick={handleCreateUser}>
+                  ユーザ作成
+                </button>
+                <button type="button" onClick={handleDeleteUser}>
+                  ユーザ削除
                 </button>
                 <div>
                   <input type="file" id="image_file_path_update_id"></input>

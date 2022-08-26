@@ -10,4 +10,7 @@ type Todo @model {
 type Mutation {
   adminCreateUser(username: String): String
     @function(name: "admincreateuser-${env}")
+
+  adminDeleteUser(username: String): String
+    @function(name: "admindeleteuser-${env}")
 }

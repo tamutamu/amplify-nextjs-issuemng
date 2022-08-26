@@ -3,14 +3,12 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreateTodoInput = {
+  content?: string | null,
   id?: string | null,
-  name: string,
-  description?: string | null,
 };
 
 export type ModelTodoConditionInput = {
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
   not?: ModelTodoConditionInput | null,
@@ -58,18 +56,15 @@ export type ModelSizeInput = {
 
 export type Todo = {
   __typename: "Todo",
+  content?: string | null,
   id: string,
-  name: string,
-  description?: string | null,
   createdAt: string,
   updatedAt: string,
-  owner?: string | null,
 };
 
 export type UpdateTodoInput = {
+  content?: string | null,
   id: string,
-  name?: string | null,
-  description?: string | null,
 };
 
 export type DeleteTodoInput = {
@@ -77,34 +72,32 @@ export type DeleteTodoInput = {
 };
 
 export type ModelTodoFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
+  content?: ModelStringInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
   nextToken?: string | null,
+};
+
+export type AdminCreateUserMutationVariables = {
+  username?: string | null,
+};
+
+export type AdminCreateUserMutation = {
+  adminCreateUser?: string | null,
+};
+
+export type AdminDeleteUserMutationVariables = {
+  username?: string | null,
+};
+
+export type AdminDeleteUserMutation = {
+  adminDeleteUser?: string | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -115,12 +108,10 @@ export type CreateTodoMutationVariables = {
 export type CreateTodoMutation = {
   createTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -132,12 +123,10 @@ export type UpdateTodoMutationVariables = {
 export type UpdateTodoMutation = {
   updateTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -149,12 +138,10 @@ export type DeleteTodoMutationVariables = {
 export type DeleteTodoMutation = {
   deleteTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -165,12 +152,10 @@ export type GetTodoQueryVariables = {
 export type GetTodoQuery = {
   getTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -185,61 +170,41 @@ export type ListTodosQuery = {
     __typename: "ModelTodoConnection",
     items:  Array< {
       __typename: "Todo",
+      content?: string | null,
       id: string,
-      name: string,
-      description?: string | null,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type OnCreateTodoSubscriptionVariables = {
-  owner?: string | null,
-};
-
 export type OnCreateTodoSubscription = {
   onCreateTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
-};
-
-export type OnUpdateTodoSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnUpdateTodoSubscription = {
   onUpdateTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
-};
-
-export type OnDeleteTodoSubscriptionVariables = {
-  owner?: string | null,
 };
 
 export type OnDeleteTodoSubscription = {
   onDeleteTodo?:  {
     __typename: "Todo",
+    content?: string | null,
     id: string,
-    name: string,
-    description?: string | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };

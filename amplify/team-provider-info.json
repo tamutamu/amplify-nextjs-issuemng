@@ -19,7 +19,15 @@
         },
         "admincreateuser": {
           "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
-          "s3Key": "amplify-builds/admincreateuser-745a786457756832646e-build.zip"
+          "s3Key": "amplify-builds/admincreateuser-55352f46694d2f585768-build.zip"
+        },
+        "AdminQueriesc81e654b": {
+          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
+          "s3Key": "amplify-builds/AdminQueriesc81e654b-7777474c6c44672b7a6f-build.zip"
+        },
+        "admindeleteuser": {
+          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
+          "s3Key": "amplify-builds/admindeleteuser-514c71686b75462f794d-build.zip"
         }
       },
       "auth": {

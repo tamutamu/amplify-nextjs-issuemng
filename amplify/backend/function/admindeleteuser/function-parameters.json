@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "auth": {
+      "amplifynextjsissuemnf60ebbd6f60ebbd6": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

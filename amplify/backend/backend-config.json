@@ -59,6 +59,28 @@
           ]
         }
       }
+    },
+    "AdminQueries": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesc81e654b",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ]
     }
   },
   "custom": {
@@ -74,6 +96,34 @@
       "service": "Lambda"
     },
     "admincreateuser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
+    },
+    "AdminQueriesc81e654b": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
+    },
+    "admindeleteuser": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
