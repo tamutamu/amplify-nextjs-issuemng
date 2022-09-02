@@ -8,6 +8,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^3.4.1",
     "aws-amplify": "^4.3.33",
+    "deepmerge": "^4.2.2",
     "file-saver": "^2.0.5",
     "next": "11.1.3",
     "react": "18.2.0",

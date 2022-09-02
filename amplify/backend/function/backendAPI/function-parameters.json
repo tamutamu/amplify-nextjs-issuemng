@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "auth": {
+      "amplifynextjsissuemnf60ebbd6f60ebbd6": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "api": {
+      "amplifynextjsissuemn": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

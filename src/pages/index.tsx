@@ -18,6 +18,7 @@ import awsExports from "../aws-exports";
 import {
   adminCreateUser,
   adminDeleteUser,
+  createStoAPI,
   createTodo,
 } from "../graphql/mutations";
 import { listTodos } from "../graphql/queries";
@@ -314,6 +315,23 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
     }
   }
 
+  async function handleChainFunction(event) {
+    event.preventDefault();
+
+    const request = (await API.graphql({
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      query: createStoAPI,
+      variables: {
+        input: {
+          name: "test1",
+          status: "IN_PROGRESS",
+        },
+      },
+    })) as { data: AdminDeleteUserMutation; errors: any[] };
+
+    console.log(request);
+  }
+
   async function handleDeleteUser(event) {
     event.preventDefault();
 
@@ -425,6 +443,9 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
                 </button>
                 <button type="button" onClick={handleDeleteUser}>
                   ユーザ削除
+                </button>
+                <button type="button" onClick={handleChainFunction}>
+                  連鎖Function
                 </button>
                 <div>
                   <input type="file" id="image_file_path_update_id"></input>

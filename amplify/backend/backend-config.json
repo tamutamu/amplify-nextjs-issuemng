@@ -55,6 +55,9 @@
                 "apiKeyExpirationDate": "2022-08-31T10:47:31.013Z",
                 "description": ""
               }
+            },
+            {
+              "authenticationType": "AWS_IAM"
             }
           ]
         }
@@ -90,11 +93,6 @@
     }
   },
   "function": {
-    "testedge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "admincreateuser": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -133,6 +131,52 @@
           "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
           "attributes": [
             "UserPoolId"
+          ]
+        }
+      ]
+    },
+    "backendAPI": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "api",
+          "resourceName": "amplifynextjsissuemn",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ]
+    },
+    "auditCheck": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemnf60ebbd6f60ebbd6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "api",
+          "resourceName": "amplifynextjsissuemn",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
           ]
         }
       ]

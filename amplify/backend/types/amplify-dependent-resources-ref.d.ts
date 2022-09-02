@@ -22,12 +22,6 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "testedge": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
         "admincreateuser": {
             "Name": "string",
             "Arn": "string",
@@ -41,6 +35,18 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string"
         },
         "admindeleteuser": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "backendAPI": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "auditCheck": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

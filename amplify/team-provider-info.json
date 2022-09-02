@@ -13,10 +13,6 @@
     },
     "categories": {
       "function": {
-        "testedge": {
-          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
-          "s3Key": "amplify-builds/testedge-706932642b70546f5975-build.zip"
-        },
         "admincreateuser": {
           "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
           "s3Key": "amplify-builds/admincreateuser-55352f46694d2f585768-build.zip"
@@ -28,6 +24,14 @@
         "admindeleteuser": {
           "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
           "s3Key": "amplify-builds/admindeleteuser-514c71686b75462f794d-build.zip"
+        },
+        "backendAPI": {
+          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
+          "s3Key": "amplify-builds/backendAPI-6b6c4f4b56436c6e6b74-build.zip"
+        },
+        "auditCheck": {
+          "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
+          "s3Key": "amplify-builds/auditCheck-496a5a6e626765342f55-build.zip"
         }
       },
       "auth": {
