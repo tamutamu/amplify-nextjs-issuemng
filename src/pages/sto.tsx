@@ -83,6 +83,23 @@ export default function StoTest({ _todos = [] }: { _todos: Todo[] }) {
     console.log(request);
   }
 
+  async function handleResetMFA(event) {
+    event.preventDefault();
+
+    const request = (await API.graphql({
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      query: createStoAPI,
+      variables: {
+        input: {
+          name: "test1",
+          status: "IN_PROGRESS",
+        },
+      },
+    })) as { data: AdminDeleteUserMutation; errors: any[] };
+
+    console.log(request);
+  }
+
   async function handleChainFunction(event) {
     event.preventDefault();
 
@@ -183,6 +200,9 @@ export default function StoTest({ _todos = [] }: { _todos: Todo[] }) {
             </button>
             <button type="button" onClick={handleChainFunction}>
               連鎖Function
+            </button>
+            <button type="button" onClick={handleResetMFA}>
+              MFA初期化
             </button>
             <div></div>
           </div>

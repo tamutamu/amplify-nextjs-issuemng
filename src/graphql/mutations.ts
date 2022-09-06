@@ -12,15 +12,9 @@ export const adminDeleteUser = /* GraphQL */ `
     adminDeleteUser(username: $username)
   }
 `;
-export const createStoAPI = /* GraphQL */ `
-  mutation CreateStoAPI($input: createStoAPIInput) {
-    createStoAPI(input: $input) {
-      id
-      name
-      status
-      createdAt
-      updatedAt
-    }
+export const resetMFA = /* GraphQL */ `
+  mutation ResetMFA($username: String) {
+    resetMFA(username: $username)
   }
 `;
 export const createSPC = /* GraphQL */ `

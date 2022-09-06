@@ -34,7 +34,11 @@ type Authority
   ) {
   group: String!
     @primaryKey(sortKeyFields: ["path", "scheme"])
-    @index(name: "byPath", sortKeyFields: ["path"], queryField: "listAuthoritiesByPath")
+    @index(
+      name: "byPath"
+      sortKeyFields: ["path"]
+      queryField: "listAuthoritiesByPath"
+    )
   scheme: String!
   path: String!
   name: String!
@@ -84,7 +88,5 @@ type Mutation {
   adminDeleteUser(username: String): String
     @function(name: "admindeleteuser-${env}")
 
-  createStoAPI(input: createStoAPIInput): Sto
-    @function(name: "auditCheck-${env}")
-    @function(name: "backendAPI-${env}")
+  resetMFA(username: String): String @function(name: "backendAPI-${env}")
 }

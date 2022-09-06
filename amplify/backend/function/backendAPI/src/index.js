@@ -18,5 +18,29 @@ exports.handler = async (event) => {
     { id: "2", content: "test2", createdAt: new Date(), updatedAt: new Date() },
   ];
 
-  return todos;
+  if (event.fieldName == "resetMFA") {
+    await resetMfa(event.arguments.username);
+  }
+
+  if (event.fieldName == "") {
+    // await resetMfa(event.arguments.username);
+  }
+
+  return "OK";
 };
+
+async function resetMfa(username) {
+  const cognito = new AWS.CognitoIdentityServiceProvider();
+  const ret = await cognito
+    .adminSetUserMFAPreference({
+      UserPoolId: process.env,
+      AUTH_AMPLIFYNEXTJSISSUEMNF60EBBD6F60EBBD6_USERPOOLID,
+      Username: username,
+      SoftwareTokenMfaSettings: {
+        Enabled: false,
+      },
+    })
+    .promise();
+
+  console.log(ret);
+}

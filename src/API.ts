@@ -2,20 +2,6 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type createStoAPIInput = {
-  name: string,
-  status?: string | null,
-};
-
-export type Sto = {
-  __typename: "Sto",
-  id?: string | null,
-  name: string,
-  status?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
 export type CreateSPCInput = {
   id?: string | null,
   name: string,
@@ -164,6 +150,15 @@ export type ModelStoConditionInput = {
   and?: Array< ModelStoConditionInput | null > | null,
   or?: Array< ModelStoConditionInput | null > | null,
   not?: ModelStoConditionInput | null,
+};
+
+export type Sto = {
+  __typename: "Sto",
+  id?: string | null,
+  name: string,
+  status?: string | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateStoInput = {
@@ -368,19 +363,12 @@ export type AdminDeleteUserMutation = {
   adminDeleteUser?: string | null,
 };
 
-export type CreateStoAPIMutationVariables = {
-  input?: createStoAPIInput | null,
+export type ResetMFAMutationVariables = {
+  username?: string | null,
 };
 
-export type CreateStoAPIMutation = {
-  createStoAPI?:  {
-    __typename: "Sto",
-    id?: string | null,
-    name: string,
-    status?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
+export type ResetMFAMutation = {
+  resetMFA?: string | null,
 };
 
 export type CreateSPCMutationVariables = {
