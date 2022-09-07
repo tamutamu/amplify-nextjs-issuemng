@@ -19,12 +19,7 @@ import {
   Todo,
 } from "../API";
 import awsExports from "../aws-exports";
-import {
-  createAuthority,
-  createSPC,
-  createStoAPI,
-  createTodo,
-} from "../graphql/mutations";
+import { createAuthority, createSPC, createTodo } from "../graphql/mutations";
 import { listSPCS, listTodoApi } from "../graphql/queries";
 import styles from "../styles/Home.module.css";
 
@@ -86,35 +81,35 @@ export default function StoTest({ _todos = [] }: { _todos: Todo[] }) {
   async function handleResetMFA(event) {
     event.preventDefault();
 
-    const request = (await API.graphql({
-      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      query: createStoAPI,
-      variables: {
-        input: {
-          name: "test1",
-          status: "IN_PROGRESS",
-        },
-      },
-    })) as { data: AdminDeleteUserMutation; errors: any[] };
+    // const request = (await API.graphql({
+    //   authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+    //   query: createStoAPI,
+    //   variables: {
+    //     input: {
+    //       name: "test1",
+    //       status: "IN_PROGRESS",
+    //     },
+    //   },
+    // })) as { data: AdminDeleteUserMutation; errors: any[] };
 
-    console.log(request);
+    // console.log(request);
   }
 
   async function handleChainFunction(event) {
     event.preventDefault();
 
-    const request = (await API.graphql({
-      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      query: createStoAPI,
-      variables: {
-        input: {
-          name: "test1",
-          status: "IN_PROGRESS",
-        },
-      },
-    })) as { data: AdminDeleteUserMutation; errors: any[] };
+    // const request = (await API.graphql({
+    //   authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+    //   query: createStoAPI,
+    //   variables: {
+    //     input: {
+    //       name: "test1",
+    //       status: "IN_PROGRESS",
+    //     },
+    //   },
+    // })) as { data: AdminDeleteUserMutation; errors: any[] };
 
-    console.log(request);
+    // console.log(request);
   }
 
   async function handleCreateSPC(event) {

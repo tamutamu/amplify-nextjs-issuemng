@@ -317,7 +317,7 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
   async function handleChainFunction(event) {
     event.preventDefault();
 
-		/**
+    /**
     const request = (await API.graphql({
       authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       query: createStoAPI,
@@ -367,18 +367,18 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
     const form = new FormData(event.target);
 
     try {
-      const createInput: CreateTodoInput = {
-        name: form.get("title").toString(),
-        description: form.get("content").toString(),
-      };
+      //   const createInput: CreateTodoInput = {
+      //     name: form.get("title").toString(),
+      //     description: form.get("content").toString(),
+      //   };
 
-      const request = (await API.graphql({
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-        query: createTodo,
-        variables: {
-          input: createInput,
-        },
-      })) as { data: CreateTodoMutation; errors: any[] };
+      //   const request = (await API.graphql({
+      //     authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      //     query: createTodo,
+      //     variables: {
+      //       input: createInput,
+      //     },
+      //   })) as { data: CreateTodoMutation; errors: any[] };
 
       router.push(`/todo/${request.data.createTodo.id}`);
     } catch ({ errors }) {
