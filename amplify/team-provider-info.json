@@ -27,7 +27,7 @@
         },
         "backendAPI": {
           "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
-          "s3Key": "amplify-builds/backendAPI-6b6c4f4b56436c6e6b74-build.zip"
+          "s3Key": "amplify-builds/backendAPI-4f52763258647268414c-build.zip"
         },
         "auditCheck": {
           "deploymentBucketName": "amplify-amplifynextjsissuemn-dev-141814-deployment",
