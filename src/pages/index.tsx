@@ -371,7 +371,6 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
       //     name: form.get("title").toString(),
       //     description: form.get("content").toString(),
       //   };
-
       //   const request = (await API.graphql({
       //     authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       //     query: createTodo,
@@ -379,8 +378,7 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
       //       input: createInput,
       //     },
       //   })) as { data: CreateTodoMutation; errors: any[] };
-
-      router.push(`/todo/${request.data.createTodo.id}`);
+      //   router.push(`/todo/${request.data.createTodo.id}`);
     } catch ({ errors }) {
       console.error(...errors);
       throw new Error(errors[0].message);
@@ -407,7 +405,7 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
             <div className={styles.grid}>
               {todos.map((todo) => (
                 <a href={`/todo/${todo.id}`} key={todo.id}>
-                  <h3>{todo.name}</h3>
+                  {/* <h3>{todo.name}</h3> */}
                 </a>
               ))}
 
