@@ -18,7 +18,6 @@ import awsExports from "../aws-exports";
 import {
   adminCreateUser,
   adminDeleteUser,
-  createStoAPI,
   createTodo,
 } from "../graphql/mutations";
 import { listTodos } from "../graphql/queries";
@@ -318,6 +317,7 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
   async function handleChainFunction(event) {
     event.preventDefault();
 
+		/**
     const request = (await API.graphql({
       authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       query: createStoAPI,
@@ -330,6 +330,7 @@ export default function Home({ todos = [] }: { todos: Todo[] }) {
     })) as { data: AdminDeleteUserMutation; errors: any[] };
 
     console.log(request);
+		**/
   }
 
   async function handleDeleteUser(event) {
