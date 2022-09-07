@@ -1,42 +1,28 @@
+import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
+import {
+  AuthState,
+  AuthStateHandler,
+  AUTH_STATE_CHANGE_EVENT,
+  UI_AUTH_CHANNEL,
+} from "@aws-amplify/ui-components";
 import {
   Authenticator,
-  Button,
   Link,
   useAuthenticator,
   View,
 } from "@aws-amplify/ui-react";
-import {
-  AuthState,
-  UI_AUTH_CHANNEL,
-  AUTH_STATE_CHANGE_EVENT,
-  AuthStateHandler,
-} from "@aws-amplify/ui-components";
 import "@aws-amplify/ui-react/styles.css";
-import { Amplify, API, Auth, Hub, I18n, withSSRContext } from "aws-amplify";
-import Head from "next/head";
-import awsExports from "../aws-exports";
-import {
-  adminCreateUser,
-  adminDeleteUser,
-  createTodo,
-} from "../graphql/mutations";
-import { listTodos } from "../graphql/queries";
-import React, { useEffect, useState } from "react";
-import {
-  AdminCreateUserMutation,
-  AdminDeleteUserMutation,
-  CreateTodoInput,
-  CreateTodoMutation,
-  ListTodosQuery,
-  Todo,
-} from "../API";
-import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
-import { useRouter } from "next/router";
-import { GetServerSideProps } from "next";
-import styles from "../styles/Home.module.css";
-import { saveAs } from "file-saver";
+import { Amplify, API, Auth, Hub, I18n } from "aws-amplify";
 import axios from "axios";
-import { translations } from "@aws-amplify/ui-react";
+import { saveAs } from "file-saver";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { AdminCreateUserMutation, AdminDeleteUserMutation, Todo } from "../API";
+import awsExports from "../aws-exports";
+import { adminCreateUser, adminDeleteUser } from "../graphql/mutations";
+import styles from "../styles/Home.module.css";
 // I18n.putVocabularies(translations);
 
 Amplify.configure({ ...awsExports, ssr: true });
