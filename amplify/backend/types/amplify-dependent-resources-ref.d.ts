@@ -1,20 +1,16 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "amplifynextjsissuemnf60ebbd6f60ebbd6": {
+        "amplifynextjsissuemn31fc276d31fc276d": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string",
-            "CreatedSNSRole": "string"
+            "AppClientID": "string"
         }
     },
     "api": {
-        "amplifynextjsissuemn": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        },
         "AdminQueries": {
             "RootUrl": "string",
             "ApiName": "string",
@@ -22,31 +18,13 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "admincreateuser": {
+        "amplifynextjsissuemn31fc276d31fc276dDefineAuthChallenge": {
             "Name": "string",
             "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         },
-        "AdminQueriesc81e654b": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "admindeleteuser": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "backendAPI": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "auditCheck": {
+        "AdminQueriesdd36cd35": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
