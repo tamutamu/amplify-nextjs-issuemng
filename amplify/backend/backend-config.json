@@ -3,17 +3,7 @@
     "amplifynextjsissuemn31fc276d31fc276d": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "amplifynextjsissuemn31fc276d31fc276dDefineAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
+      "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
@@ -36,11 +26,58 @@
     }
   },
   "api": {
-    "AdminQueries": {
-      "service": "API Gateway",
+    "amplifynextjsissuemn": {
+      "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
       "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifynextjsissuemn31fc276d31fc276d",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authamplifynextjsissuemn31fc276d31fc276d"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2022-09-20T11:15:42.865Z",
+                "description": ""
+              }
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "custom": {},
+  "function": {
+    "EventCommand": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "amplifynextjsissuemn",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ]
+        },
         {
           "category": "auth",
           "resourceName": "amplifynextjsissuemn31fc276d31fc276d",
@@ -49,38 +86,12 @@
           ]
         },
         {
-          "category": "function",
-          "resourceName": "AdminQueriesdd36cd35",
+          "category": "api",
+          "resourceName": "amplifynextjsissuemn",
           "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
-    }
-  },
-  "custom": {
-    "cdkcfedge": {
-      "service": "customCDK",
-      "providerPlugin": "awscloudformation"
-    }
-  },
-  "function": {
-    "amplifynextjsissuemn31fc276d31fc276dDefineAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "AdminQueriesdd36cd35": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "amplifynextjsissuemn31fc276d31fc276d",
-          "attributes": [
-            "UserPoolId"
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
           ]
         }
       ]

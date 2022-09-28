@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amplifynextjsissuemn",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/home/tamutamu/r/DEV/aws/amplify/amplify-nextjs-issuemng/amplify/backend/api/amplifynextjsissuemn/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authamplifynextjsissuemn31fc276d31fc276d"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 7,
+        "apiKeyExpirationDate": "2022-09-20T11:15:42.865Z",
+        "keyDescription": ""
+      },
+      {
+        "mode": "AWS_IAM"
+      }
+    ]
+  }
+}

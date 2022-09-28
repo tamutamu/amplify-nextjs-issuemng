@@ -11,20 +11,14 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "AdminQueries": {
-            "RootUrl": "string",
-            "ApiName": "string",
-            "ApiId": "string"
+        "amplifynextjsissuemn": {
+            "GraphQLAPIKeyOutput": "string",
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
         }
     },
     "function": {
-        "amplifynextjsissuemn31fc276d31fc276dDefineAuthChallenge": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "AdminQueriesdd36cd35": {
+        "EventCommand": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

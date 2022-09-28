@@ -44,6 +44,7 @@ export default function StoTest({ _todos = [] }: { _todos: Todo[] }) {
     });
   };
 
+	/**
   useEffect(() => {
     (async () => {
       const result = await secureAPI(
@@ -58,6 +59,7 @@ export default function StoTest({ _todos = [] }: { _todos: Todo[] }) {
       }
     })();
   }, []);
+	 **/
 
   async function handleCreateAuthority(event) {
     event.preventDefault();
@@ -130,6 +132,8 @@ export default function StoTest({ _todos = [] }: { _todos: Todo[] }) {
           input: { content: "test" },
         },
       })) as { data: CreateTodoMutation; errors: any[] };
+
+			console.log(request);
 
       //   router.push(`/todo/${request.data.createSPC.id}`);
     } catch ({ errors }) {

@@ -17,13 +17,9 @@
         "amplifynextjsissuemn31fc276d31fc276d": {}
       },
       "function": {
-        "amplifynextjsissuemn31fc276d31fc276dDefineAuthChallenge": {
+        "EventCommand": {
           "deploymentBucketName": "amplify-amplifynextjsissuemn-develop-105826-deployment",
-          "s3Key": "amplify-builds/amplifynextjsissuemn31fc276d31fc276dDefineAuthChallenge-66373635524654705359-build.zip"
-        },
-        "AdminQueriesdd36cd35": {
-          "deploymentBucketName": "amplify-amplifynextjsissuemn-develop-105826-deployment",
-          "s3Key": "amplify-builds/AdminQueriesdd36cd35-46526759685833516a5a-build.zip"
+          "s3Key": "amplify-builds/EventCommand-565a7375393577466477-build.zip"
         }
       }
     }
